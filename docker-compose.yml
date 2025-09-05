@@ -1,0 +1,16 @@
+services:
+  apiratelimiter:
+    image: ${DOCKER_REGISTRY-}apiratelimiter
+    build:
+      context: .
+      dockerfile: APIRateLimiter/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
